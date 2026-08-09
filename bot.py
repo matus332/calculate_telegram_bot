@@ -16,8 +16,13 @@ from database import (
     deposit_grn_card,
     get_grn_card_balance,
     withdraw_grn_card,
-    add_expense, daily_report_expenses, weekly_report_expenses, monthly_report_expenses, yearly_report_expenses,
-    add_user, get_all_users,
+    add_expense,
+    daily_report_expenses,
+    weekly_report_expenses,
+    monthly_report_expenses,
+    yearly_report_expenses,
+    add_user,
+    get_all_users,
 )
 from dotenv import load_dotenv
 
@@ -31,7 +36,9 @@ from keyboards import (
     expenses_markup,
     back_to_expenses,
     cancel_input_markup,
-    income_cancel_markup, report_money_markup, back_to_reports_markup,
+    income_cancel_markup,
+    report_money_markup,
+    back_to_reports_markup,
 )
 
 load_dotenv()
@@ -53,6 +60,7 @@ category_names = {
     "taxi": "🚕 Такси",
     "another": "🔍 Другое",
 }
+
 
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
@@ -348,10 +356,7 @@ def process_expense(message, payment_method, category):
     elif payment_method == "cash":
         balance = get_grn_cash_balance(message.from_user.id)
     else:
-        bot.send_message(
-            message.chat.id,
-            "❌ Неизвестный способ оплаты"
-        )
+        bot.send_message(message.chat.id, "❌ Неизвестный способ оплаты")
         return
 
     if balance is None:
@@ -376,10 +381,7 @@ def process_expense(message, payment_method, category):
         withdraw_grn_cash(message.from_user.id, amount)
 
     else:
-        bot.send_message(
-            message.chat.id,
-            "❌ Неизвестный способ оплаты"
-        )
+        bot.send_message(message.chat.id, "❌ Неизвестный способ оплаты")
         return
 
     add_expense(message.from_user.id, amount, payment_method, category)
@@ -391,10 +393,7 @@ def process_expense(message, payment_method, category):
         balance = get_grn_cash_balance(message.from_user.id)
 
     else:
-        bot.send_message(
-            message.chat.id,
-            "❌ Неизвестный способ оплаты"
-        )
+        bot.send_message(message.chat.id, "❌ Неизвестный способ оплаты")
         return
 
     category_name = category_names.get(category, category)
@@ -407,6 +406,7 @@ def process_expense(message, payment_method, category):
         f"💰 Остаток: {balance} ₴",
         reply_markup=expenses_markup,
     )
+
 
 def send_daily_report(user_id):
     date = datetime.date.today()
@@ -422,10 +422,8 @@ def send_daily_report(user_id):
 
     text += f"\n💸 Всего за день: {total}₴"
 
-    bot.send_message(
-        user_id,
-        text
-    )
+    bot.send_message(user_id, text)
+
 
 def send_daily_reports_to_all():
     users = get_all_users()
@@ -433,6 +431,7 @@ def send_daily_reports_to_all():
     for user in users:
         user_id = user[0]
         send_daily_report(user_id)
+
 
 def send_weekly_report(user_id):
     end_date = datetime.date.today()
@@ -459,6 +458,7 @@ def send_weekly_reports_to_all():
         user_id = user[0]
         send_weekly_report(user_id)
 
+
 def send_monthly_report(user_id):
     end_date = datetime.date.today()
 
@@ -477,12 +477,14 @@ def send_monthly_report(user_id):
 
     bot.send_message(user_id, text)
 
+
 def send_monthly_reports_to_all():
     users = get_all_users()
 
     for user in users:
         user_id = user[0]
         send_monthly_report(user_id)
+
 
 def send_yearly_report(user_id):
     end_date = datetime.date.today()
@@ -502,12 +504,14 @@ def send_yearly_report(user_id):
 
     bot.send_message(user_id, text)
 
+
 def send_yearly_reports_to_all():
     users = get_all_users()
 
     for user in users:
         user_id = user[0]
         send_yearly_report(user_id)
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_menu(call):
@@ -769,14 +773,13 @@ def callback_menu(call):
             text=text,
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
-            reply_markup=back_to_reports_markup
+            reply_markup=back_to_reports_markup,
         )
 
     elif call.data == "weekly_report_button":
         end_date = datetime.date.today()
 
         start_date = end_date - datetime.timedelta(days=end_date.weekday())
-
 
         weekly_report = weekly_report_expenses(call.from_user.id, start_date, end_date)
         text = "📅 Расходы за неделю\n\n"
@@ -793,7 +796,7 @@ def callback_menu(call):
             text=text,
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
-            reply_markup=back_to_reports_markup
+            reply_markup=back_to_reports_markup,
         )
 
     elif call.data == "monthly_report_button":
@@ -801,7 +804,9 @@ def callback_menu(call):
 
         start_date = end_date.replace(day=1)
 
-        monthly_report = monthly_report_expenses(call.from_user.id, start_date, end_date)
+        monthly_report = monthly_report_expenses(
+            call.from_user.id, start_date, end_date
+        )
         text = "📅 Расходы за месяц\n\n"
         total = 0
 
@@ -816,7 +821,7 @@ def callback_menu(call):
             text=text,
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
-            reply_markup=back_to_reports_markup
+            reply_markup=back_to_reports_markup,
         )
 
     elif call.data == "yearly_report_button":
@@ -839,8 +844,9 @@ def callback_menu(call):
             text=text,
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
-            reply_markup=back_to_reports_markup
+            reply_markup=back_to_reports_markup,
         )
+
 
 def run_bot():
     scheduler = BackgroundScheduler(timezone="Europe/Kyiv")
@@ -877,7 +883,6 @@ def run_bot():
         minute=0,
     )
     scheduler.start()
-
 
     bot.remove_webhook()
     bot.infinity_polling()

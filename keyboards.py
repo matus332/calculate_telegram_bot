@@ -8,7 +8,9 @@ back_to_menu = InlineKeyboardButton("⬅️ Назад", callback_data="back_to_
 
 
 back_to_reports_markup = InlineKeyboardMarkup()
-back_to_reports_button = InlineKeyboardButton("⬅️ Назад", callback_data="back_to_reports")
+back_to_reports_button = InlineKeyboardButton(
+    "⬅️ Назад", callback_data="back_to_reports"
+)
 back_to_reports_markup.add(back_to_reports_button)
 
 
@@ -20,17 +22,27 @@ expenses_menu_button = InlineKeyboardButton(
 saving_menu_button = InlineKeyboardButton(
     "💰 Сбережения", callback_data="saving_menu_button"
 )
-report_money_button = InlineKeyboardButton("📈 Сводки", callback_data="report_money_button")
+report_money_button = InlineKeyboardButton(
+    "📈 Сводки", callback_data="report_money_button"
+)
 markup_menu.add(expenses_menu_button, saving_menu_button, report_money_button)
 
-#markup to reports
+# markup to reports
 report_money_markup = InlineKeyboardMarkup()
-daily_report_button = InlineKeyboardButton("📅 За день", callback_data="daily_report_button")
-weekly_report_button = InlineKeyboardButton("📊 За неделю", callback_data="weekly_report_button")
+daily_report_button = InlineKeyboardButton(
+    "📅 За день", callback_data="daily_report_button"
+)
+weekly_report_button = InlineKeyboardButton(
+    "📊 За неделю", callback_data="weekly_report_button"
+)
 
-monthly_report_button = InlineKeyboardButton("🗓 За месяц", callback_data="monthly_report_button")
+monthly_report_button = InlineKeyboardButton(
+    "🗓 За месяц", callback_data="monthly_report_button"
+)
 
-yearly_report_button = InlineKeyboardButton("📈 За год", callback_data="yearly_report_button")
+yearly_report_button = InlineKeyboardButton(
+    "📈 За год", callback_data="yearly_report_button"
+)
 
 report_money_markup.add(
     back_to_menu,
