@@ -61,6 +61,7 @@ category_names = {
     "device": "💻 Техника",
     "cellular": "📱 Сотовый",
     "pharmacy": "💊 Аптека",
+    "subscription": "🔄 Подписки",
     "another": "🔍 Другое",
 }
 

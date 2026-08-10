@@ -152,6 +152,7 @@ taxi_button = InlineKeyboardButton("🚕 Такси", callback_data="expenses:ta
 device_button = InlineKeyboardButton("💻 Техника", callback_data="expenses:device")
 cellular_button = InlineKeyboardButton("📱 Сотовый", callback_data="expenses:cellular")
 pharmacy_button = InlineKeyboardButton("💊 Аптека", callback_data="expenses:pharmacy")
+subscription_button = InlineKeyboardButton("🔄 Подписки", callback_data="expenses:subscription")
 another_button = InlineKeyboardButton("🔍 Другое", callback_data="expenses:another")
 expenses_markup.add(
     back_to_menu,
@@ -169,6 +170,7 @@ expenses_markup.add(
     device_button,
     cellular_button,
     pharmacy_button,
+    subscription_button,
     another_button,
 )
 back_to_expenses = InlineKeyboardButton("⬅️ Назад", callback_data="back_to_expenses")
