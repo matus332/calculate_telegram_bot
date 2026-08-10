@@ -58,6 +58,9 @@ category_names = {
     "alco": "🍷 Алкоголь",
     "coffee": "☕️ Кофе",
     "taxi": "🚕 Такси",
+    "device": "💻 Техника",
+    "cellular": "📱 Сотовый",
+    "pharmacy": "💊 Аптека",
     "another": "🔍 Другое",
 }
 
